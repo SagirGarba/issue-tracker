@@ -2,19 +2,18 @@ import IssueStatusBar from "@/app/components/IssueStatusBar";
 import prisma from "@/prisma/client";
 import { Card, Flex, Heading } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
-    params: {id: string}
+  params: { id: string };
 }
 
-const issuePage = async ({params}: Props) => {
+const issuePage = async ({ params }: Props) => {
+  const issue = await prisma.issue.findUnique({
+    where: { id: parseInt(params.id) },
+  });
 
-    const issue = await prisma.issue.findUnique({
-      where: { id: parseInt(params.id) },
-    });
-
-    if(!issue)
-        notFound();
+  if (!issue) notFound();
 
   return (
     <div>
@@ -23,11 +22,11 @@ const issuePage = async ({params}: Props) => {
         <IssueStatusBar status={issue.status} />
         <p>{issue.createdAt.toDateString()}</p>
       </Flex>
-      <Card>
-        <p>{issue.description}</p>
+      <Card className="prose mt-12" >
+        <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
     </div>
   );
-}
+};
 
-export default issuePage
+export default issuePage;
