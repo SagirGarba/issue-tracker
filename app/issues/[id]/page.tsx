@@ -15,6 +15,7 @@ const issuePage = async ({ params }: Props) => {
 
   if (!issue) notFound();
 
+  
   return (
     <div>
       <Heading>{issue.title}</Heading>
@@ -22,7 +23,7 @@ const issuePage = async ({ params }: Props) => {
         <IssueStatusBar status={issue.status} />
         <p>{issue.createdAt.toDateString()}</p>
       </Flex>
-      <Card className="prose mt-12" >
+      <Card className="prose mt-12">
         <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
     </div>
