@@ -12,7 +12,7 @@ const IssueDetails = ({ issue }: { issue: Issue }) => {
         <IssueStatusBar status={issue.status} />
         <p>{issue.createdAt.toDateString()}</p>
       </Flex>
-      <Card className="prose mt-12">
+      <Card className="prose max-w-full" mt="4">
         <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
     </>
